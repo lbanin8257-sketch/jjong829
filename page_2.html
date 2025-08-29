@@ -1,0 +1,178 @@
+<!DOCTYPE html><html><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>푸꾸옥 여행 개요</title>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://cdn.tailwindcss.com"></script><style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
+        body {width: 1280px; min-height: 720px; overflow: hidden; font-family: 'Noto Sans KR', sans-serif;}
+        .slide-bg {
+            background-color: #FFFFF0;
+        }
+        .title-underline {
+            border-bottom: 4px solid #FF7F50;
+        }
+        .info-card {
+            background-color: rgba(255, 255, 240, 0.85);
+            border-left: 4px solid #2E8B57;
+        }
+        .temperature-chart {
+            height: 100px;
+            width: 100%;
+        }
+    
+html {
+    overflow: hidden;
+}</style>
+</head>
+<body>
+<div class="slide-bg w-[1280px] h-[720px] p-8" style=" overflow: hidden;">
+<!-- Title -->
+<div class="mb-6">
+<h1 class="text-4xl font-bold text-[#8B4513] title-underline inline-block pb-2">푸꾸옥 여행 개요</h1>
+</div>
+<!-- Main Content -->
+<div class="flex gap-6 min-h-[560px]">
+<!-- Left Column - Geographic Features -->
+<div class="w-1/2 bg-white rounded-lg shadow-lg p-6 flex flex-col">
+<h2 class="text-2xl font-bold text-[#8B4513] mb-4">
+<i class="fas fa-map-marker-alt text-[#FF7F50] mr-2"></i>지리적 특징
+                </h2>
+<div class="flex-grow">
+<p class="mb-4 text-lg">
+                        푸꾸옥은 <span class="font-semibold">베트남 남서부에 위치한 섬</span>으로, 아름다운 해변과 풍부한 자연환경을 자랑합니다.
+                    </p>
+<p class="mb-4 text-lg">
+                        2025년 1월은 푸꾸옥의 <span class="font-semibold">건기에 해당</span>하여, 따뜻한 기온, 부드러운 햇빛, 맑고 푸른 하늘이 특징입니다.
+                    </p>
+<div class="mt-4">
+<img alt="푸꾸옥 해변" class="rounded-lg w-full h-[240px] object-cover shadow-md" src="https://picture-search.skywork.ai/aippt/image/sheet/d466474a741b7df883cb29cc0ac39172.jpg" data-sk-source-container="img" data-sk-source-url="https://triple.guide/articles/26507d1c-12d6-44b3-9c22-f13f2855d0fb" data-sk-source-id="1961396802811535363"/>
+<p class="text-sm text-gray-600 mt-2 text-center">푸꾸옥의 아름다운 해변</p>
+</div>
+</div>
+</div>
+<!-- Right Column - Climate &amp; Preparation -->
+<div class="w-1/2 flex flex-col gap-6">
+<!-- Climate Information -->
+<div class="bg-white rounded-lg shadow-lg p-6 flex-grow">
+<h2 class="text-2xl font-bold text-[#8B4513] mb-4">
+<i class="fas fa-sun text-[#FF7F50] mr-2"></i>1월 기후 조건
+                    </h2>
+<div class="flex items-center mb-4">
+<div class="w-1/2">
+<ul class="list-disc list-inside text-lg space-y-2">
+<li>평균 기온: <span class="font-semibold">23°C ~ 31°C</span></li>
+<li>건조한 기후, 거의 비가 내리지 않음</li>
+<li>바다 상태: 평온</li>
+<li>가족 단위 여행객에게 이상적인 휴양지</li>
+</ul>
+</div>
+<div class="w-1/2">
+<div class="temperature-chart" id="temperature-chart"></div>
+</div>
+</div>
+</div>
+<!-- Travel Preparation -->
+<div class="info-card rounded-lg shadow-lg p-6">
+<h2 class="text-2xl font-bold text-[#8B4513] mb-3">
+<i class="fas fa-clipboard-check text-[#40E0D0] mr-2"></i>여행 준비사항
+                    </h2>
+<p class="text-lg">
+                        1월은 푸꾸옥 관광의 <span class="font-semibold">성수기</span>이므로, 원활한 여행을 위해 사전 준비가 필수적입니다.
+                    </p>
+<div class="flex mt-3 gap-4">
+<div class="flex-1 flex items-center">
+<i class="fas fa-passport text-[#FF7F50] text-xl mr-2"></i>
+<span>여권 및 비자</span>
+</div>
+<div class="flex-1 flex items-center">
+<i class="fas fa-money-bill-wave text-[#FF7F50] text-xl mr-2"></i>
+<span>외화 및 결제수단</span>
+</div>
+<div class="flex-1 flex items-center">
+<i class="fas fa-hotel text-[#FF7F50] text-xl mr-2"></i>
+<span>숙소 예약</span>
+</div>
+<div class="flex-1 flex items-center">
+<i class="fas fa-shield-alt text-[#FF7F50] text-xl mr-2"></i>
+<span>보험 가입</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Page Number -->
+<div class="absolute bottom-4 right-6 text-gray-600" style="visibility: hidden;">
+            2/8
+        </div>
+</div>
+<script>
+        // Simple temperature chart using D3.js
+        document.addEventListener('DOMContentLoaded', function() {
+            const svg = d3.select("#temperature-chart")
+                .append("svg")
+                .attr("width", "100%")
+                .attr("height", "100%");
+            
+            const margin = {top: 20, right: 20, bottom: 30, left: 40};
+            const width = document.getElementById('temperature-chart').offsetWidth - margin.left - margin.right;
+            const height = document.getElementById('temperature-chart').offsetHeight - margin.top - margin.bottom;
+            
+            const g = svg.append("g")
+                .attr("transform", `translate(${margin.left},${margin.top})`);
+            
+            // Temperature data for January (based on document: 23°C to 31°C)
+            const data = [
+                {day: "오전", temp: 23},
+                {day: "낮", temp: 28},
+                {day: "오후", temp: 31},
+                {day: "저녁", temp: 26}
+            ];
+            
+            // Scales
+            const x = d3.scaleBand()
+                .domain(data.map(d => d.day))
+                .range([0, width])
+                .padding(0.3);
+            
+            const y = d3.scaleLinear()
+                .domain([20, 35])
+                .range([height, 0]);
+            
+            // Draw bars
+            g.selectAll(".bar")
+                .data(data)
+                .enter().append("rect")
+                .attr("class", "bar")
+                .attr("x", d => x(d.day))
+                .attr("y", d => y(d.temp))
+                .attr("width", x.bandwidth())
+                .attr("height", d => height - y(d.temp))
+                .attr("fill", "#FF7F50");
+            
+            // Add x axis
+            g.append("g")
+                .attr("transform", `translate(0,${height})`)
+                .call(d3.axisBottom(x));
+            
+            // Add y axis
+            g.append("g")
+                .call(d3.axisLeft(y).ticks(5));
+            
+            // Add temperature labels
+            g.selectAll(".label")
+                .data(data)
+                .enter().append("text")
+                .attr("class", "label")
+                .attr("x", d => x(d.day) + x.bandwidth()/2)
+                .attr("y", d => y(d.temp) - 5)
+                .attr("text-anchor", "middle")
+                .text(d => d.temp + "°C")
+                .attr("font-size", "12px")
+                .attr("fill", "#8B4513");
+        });
+    </script>
+
+</body></html>
